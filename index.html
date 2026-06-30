@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Chen — Web Developer & Freelancer</title>
+<meta name="description" content="Portfolio of Alex Chen. Web developer, Python/Django & FastAPI, freelance builder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        code: ['DM Mono', 'Consolas', 'monospace'],
+      },
+    }
+  }
+}
+</script>
+<style>
+:root { --accent: #c8432e; --ink: #1a1a18; --ink-dim: #6b655e; --paper: #f5f2ed; --surface: #ece8e1; --border: #d6d0c8; --bg: var(--paper); --text: var(--ink); --text-dim: var(--ink-dim); }
+html.dark { --ink: #e8e4dd; --ink-dim: #9e9a91; --paper: #12120e; --surface: #1c1c16; --border: #2a2a22; --bg: var(--paper); --text: var(--ink); --text-dim: var(--ink-dim); }
+html { background: var(--bg); transition: background .3s; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Mono', Consolas, monospace; transition: background .3s, color .3s; -webkit-font-smoothing: antialiased; margin: 0; }
+::selection { background: var(--accent); color: #fff; }
+.bg-theme { background: var(--bg); }
+.text-theme { color: var(--text); }
+.text-dim { color: var(--text-dim); }
+.text-accent { color: var(--accent); }
+.border-theme { border-color: var(--border); }
+.bg-accent { background: var(--accent); }
+.bg-surface { background: var(--surface); }
+.hover-accent:hover { color: var(--accent) !important; }
+.hover-border-accent:hover { border-color: var(--accent) !important; }
+.rule { height: 1px; background: var(--border); width: 100%; }
+.rule-accent { height: 2px; background: var(--accent); width: 4rem; }
+.tag {
+  display: inline-block; font-size: 0.75rem; font-family: 'DM Mono', Consolas, monospace;
+  padding: 0.125rem 0.625rem; border: 1px solid var(--border); border-radius: 0;
+  color: var(--text-dim); transition: color .2s, border-color .2s; line-height: 1.5;
+}
+.tag:hover { color: var(--accent); border-color: var(--accent); }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.625rem 1.25rem; font-family: 'DM Mono', Consolas, monospace;
+  font-size: 0.8125rem; font-weight: 500; border: 1px solid transparent;
+  cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+  line-height: 1; text-decoration: none;
+}
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { opacity: .88; }
+.btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.section-label {
+  font-family: 'DM Mono', Consolas, monospace; font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+  display: inline-flex; align-items: center; gap: 0.75rem;
+}
+.section-label::after { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* navigation */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); transition: background .3s, border-color .3s; }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 4rem; display: flex; align-items: center; justify-content: space-between; }
+@media (min-width: 1024px) { .nav-inner { padding: 0 2.5rem; } }
+.nav-logo { font-family: 'DM Mono', Consolas, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: -0.01em; color: var(--text); }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a { font-family: 'DM Mono', Consolas, monospace; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-dim); transition: color .2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-toggle { display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; color: var(--text-dim); transition: color .2s; padding: 0; }
+.nav-toggle:hover { color: var(--accent); }
+.hamburger { display: none; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; color: var(--text); padding: 0; }
+
+@media (max-width: 767px) {
+  .hamburger { display: flex; }
+  .nav-links { display: none; position: absolute; top: 4rem; left: 0; right: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); flex-direction: column; align-items: flex-start; padding: 1.5rem; gap: 1rem; }
+  .nav-links.open { display: flex; }
+  .nav-links .nav-toggle { align-self: flex-start; }
+}
+
+/* sections */
+section { padding: 5rem 0; }
+@media (min-width: 768px) { section { padding: 7rem 0; } }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+@media (min-width: 1024px) { .container { padding: 0 2.5rem; } }
+
+/* hero */
+#hero { padding-top: 10rem; padding-bottom: 6rem; }
+@media (min-width: 768px) { #hero { padding-top: 12rem; padding-bottom: 8rem; } }
+
+/* form inputs */
+.contact-input {
+  width: 100%; font-family: 'DM Mono', Consolas, monospace; font-size: 0.875rem;
+  padding: 0.625rem 0; background: transparent; outline: none;
+  border: none; border-bottom: 1px solid var(--border);
+  color: var(--text); transition: border-color .2s;
+}
+.contact-input:focus { border-bottom-color: var(--accent); }
+
+/* freelance items */
+.freelance-item { border-left: 2px solid var(--accent); padding-left: 1.25rem; }
+
+/* responsive grid helpers */
+@media (min-width: 768px) {
+  .grid-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+  .col-2 { grid-column: span 2; }
+  .col-3 { grid-column: span 3; }
+  .col-4 { grid-column: span 4; }
+  .col-5 { grid-column: span 5; }
+  .col-6 { grid-column: span 6; }
+  .col-7 { grid-column: span 7; }
+  .col-8 { grid-column: span 8; }
+  .col-9 { grid-column: span 9; }
+  .col-10 { grid-column: span 10; }
+  .col-start-2 { grid-column-start: 2; }
+  .col-start-3 { grid-column-start: 3; }
+  .col-start-4 { grid-column-start: 4; }
+  .col-start-5 { grid-column-start: 5; }
+  .col-start-6 { grid-column-start: 6; }
+  .col-start-7 { grid-column-start: 7; }
+  .col-start-8 { grid-column-start: 8; }
+  .col-start-9 { grid-column-start: 9; }
+  .col-start-10 { grid-column-start: 10; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Alex Chen</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <!-- <a href="#freelance">Freelance</a> -->
+      <a href="#contact">Contact</a>
+      <button class="nav-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="flex items-center gap-2 mb-8 md:mb-10" style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;color:var(--text-dim)">
+      <span class="inline-block w-2 h-2 rounded-full" style="background:#22c55e"></span>
+      <span>Open to work</span>
+      <span class="mx-2" style="color:var(--border)">/</span>
+      <a href="mailto:faiyazmanju.tech@gmail.com" class="hover-accent" style="transition:color .2s">faiyazmanju.tech@gmail.com</a>
+    </div>
+
+    <div class="md:grid-12">
+      <div class="md:col-span-10 md:col-start-2">
+        <h1 class="font-display font-black leading-[0.92] tracking-[-0.04em]" style="font-size:clamp(3rem,10vw,6.5rem);color:var(--text)">
+          Faiyaz I.<br>Manju
+        </h1>
+      </div>
+    </div>
+
+    <div class="md:grid-12" style="margin-top:1.5rem">
+      <div class="md:col-span-5 md:col-start-2">
+        <div class="rule-accent" style="margin-bottom:1.25rem"></div>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-weight:500;font-size:clamp(1rem,1.5vw,1.1875rem);color:var(--text)">
+          Web Developer &amp; Freelancer
+        </p>
+      </div>
+      <div class="md:col-span-4 md:col-start-8" style="margin-top:1rem;margin-bottom:0">
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;line-height:1.625;color:var(--text-dim)">
+          I build fast APIs, full-stack products that ship.
+        </p>
+      </div>
+    </div>
+
+    <div class="md:grid-12" style="margin-top:2rem">
+      <div class="md:col-span-4 md:col-start-2 flex flex-wrap gap-3" style="margin-top:0.5rem">
+        <a href="#projects" class="btn btn-primary">View Projects &rarr;</a>
+        <a href="#contact" class="btn btn-outline">Hire Me &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule" style="max-width:1200px;margin:0 auto"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="md:grid-12">
+      <div class="md:col-span-2">
+        <span class="section-label">About</span>
+      </div>
+      <div class="md:col-span-7 md:col-start-4" style="margin-top:1rem;margin-bottom:0">
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:clamp(0.9375rem,1.1vw,1.0625rem);line-height:1.7;color:var(--text-dim)">
+          I'm a CS student who builds things that work. I specialize in Python backends (Django, FastAPI), clean REST APIs. Currently looking for an internship and any work opportunity where I can write production code, not just JIRA tickets — and open to freelance work that solves real business problems.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule" style="max-width:1200px;margin:0 auto"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="md:grid-12">
+      <div class="md:col-span-2">
+        <span class="section-label">Skills</span>
+      </div>
+      <div class="md:col-span-9 md:col-start-4" style="margin-top:1rem;margin-bottom:0">
+        <div class="skills-list" style="display:flex;flex-direction:column;gap:1.5rem">
+          <div class="skill-row" style="display:flex;flex-direction:column;gap:0.5rem">
+            <span style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);width:7rem;flex-shrink:0">Languages</span>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Python</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </div>
+          <div class="skill-row" style="display:flex;flex-direction:column;gap:0.5rem">
+            <span style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);width:7rem;flex-shrink:0">Frameworks</span>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Django</span>
+              <span class="tag">FastAPI</span>
+            </div>
+          </div>
+          <div class="skill-row" style="display:flex;flex-direction:column;gap:0.5rem">
+            <span style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);width:7rem;flex-shrink:0">Tools</span>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Git</span>
+              <span class="tag">GitHub</span>
+              <span class="tag">ChatGPT</span>
+              <span class="tag">Claude</span>
+              <span class="tag">Gemini</span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule" style="max-width:1200px;margin:0 auto"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="md:grid-12" style="margin-bottom:2.5rem">
+      <div class="md:col-span-2">
+        <span class="section-label">Projects</span>
+      </div>
+      <div class="md:col-span-4 md:col-start-4">
+        <h2 class="font-display font-bold" style="font-size:1.5rem;line-height:1.2;color:var(--text)">Things I've Built</h2>
+      </div>
+      <div class="md:col-span-4 md:col-start-9 self-end" style="margin-top:0.5rem;margin-bottom:0">
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;color:var(--text-dim)">Side projects and open-source work.</p>
+      </div>
+    </div>
+
+    <div class="projects-list">
+      <div class="project-item md:grid-12" style="padding:1.5rem 0">
+        <div class="md:col-span-4 md:col-start-2">
+          <h3 class="font-display font-semibold" style="font-size:1.25rem;line-height:1.2;color:var(--text)">EduAdmin</h3>
+        </div>
+        <div class="md:col-span-5 md:col-start-7" style="margin-top:0.5rem;margin-bottom:0">
+          <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;line-height:1.6;color:var(--text-dim);margin-bottom:0.75rem">A web-based student management system. </p>
+          <div class="flex flex-wrap gap-1.5" style="margin-bottom:0.75rem">
+            <span class="tag">Python</span>
+            <span class="tag">Django</span>
+            <span class="tag">SQLite</span>
+          </div>
+          <div style="display:flex;gap:1rem;font-family:'DM Mono',Consolas,monospace;font-size:0.75rem">
+            <a href="https://github.com/faiyaz-manju/EduAdmin---School-Management-System" class="hover-accent" style="color:var(--text-dim);transition:color .2s">GitHub &rarr;</a>
+            <!-- <a href="#" class="hover-accent" style="color:var(--text-dim);transition:color .2s">Live Demo &rarr;</a> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <!-- <div class="project-item md:grid-12" style="padding:1.5rem 0">
+        <div class="md:col-span-4 md:col-start-2">
+          <h3 class="font-display font-semibold" style="font-size:1.25rem;line-height:1.2;color:var(--text)">FormBox</h3>
+        </div>
+        <div class="md:col-span-5 md:col-start-7" style="margin-top:0.5rem;margin-bottom:0">
+          <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;line-height:1.6;color:var(--text-dim);margin-bottom:0.75rem">Headless form backend with spam detection, file uploads, and real-time dashboard.</p>
+          <div class="flex flex-wrap gap-1.5" style="margin-bottom:0.75rem">
+            <span class="tag">FastAPI</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Redis</span>
+            <span class="tag">React</span>
+          </div>
+          <div style="display:flex;gap:1rem;font-family:'DM Mono',Consolas,monospace;font-size:0.75rem">
+            <a href="#" class="hover-accent" style="color:var(--text-dim);transition:color .2s">GitHub &rarr;</a>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="rule"></div>
+
+      <!-- <div class="project-item md:grid-12" style="padding:1.5rem 0">
+        <div class="md:col-span-4 md:col-start-2">
+          <h3 class="font-display font-semibold" style="font-size:1.25rem;line-height:1.2;color:var(--text)">DevDash</h3>
+        </div>
+        <div class="md:col-span-5 md:col-start-7" style="margin-top:0.5rem;margin-bottom:0">
+          <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;line-height:1.6;color:var(--text-dim);margin-bottom:0.75rem">Server monitoring dashboard — CPU, memory, disk, and live logs via WebSockets.</p>
+          <div class="flex flex-wrap gap-1.5" style="margin-bottom:0.75rem">
+            <span class="tag">Next.js</span>
+            <span class="tag">WebSocket</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Python</span>
+          </div>
+          <div style="display:flex;gap:1rem;font-family:'DM Mono',Consolas,monospace;font-size:0.75rem">
+            <a href="#" class="hover-accent" style="color:var(--text-dim);transition:color .2s">GitHub &rarr;</a>
+            <a href="#" class="hover-accent" style="color:var(--text-dim);transition:color .2s">Live Demo &rarr;</a>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule" style="max-width:1200px;margin:0 auto"></div>
+
+<!-- FREELANCE -->
+<!-- <section id="freelance">
+  <div class="container">
+    <div class="md:grid-12" style="margin-bottom:2.5rem">
+      <div class="md:col-span-2">
+        <span class="section-label">Freelance</span>
+      </div>
+      <div class="md:col-span-4 md:col-start-4">
+        <h2 class="font-display font-bold" style="font-size:1.5rem;line-height:1.2;color:var(--text)">Client Results</h2>
+      </div>
+      <div class="md:col-span-4 md:col-start-9 self-end" style="margin-top:0.5rem;margin-bottom:0">
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;color:var(--text-dim)">Real projects delivered for real people.</p>
+      </div>
+    </div>
+
+    <div class="md:grid-12" style="gap:1.5rem">
+      <div class="freelance-item md:col-span-4 md:col-start-2" style="margin-bottom:1.5rem">
+        <h3 class="font-display font-semibold" style="font-size:1.125rem;line-height:1.2;margin-bottom:0.25rem;color:var(--text)">Inventory Sync API</h3>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.75rem;color:var(--accent)">LocalMart Grocery</p>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.8125rem;line-height:1.6;margin-bottom:0.75rem;color:var(--text-dim)">Built a real-time inventory sync between their POS system and online store, eliminating manual stock entry.</p>
+        <div style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;line-height:1.5;color:var(--accent)">
+          <span aria-hidden="true" style="display:inline-block;margin-right:0.375rem">&rarr;</span>Cut stock discrepancies from 12% to under 1%
+        </div>
+      </div>
+
+      <div class="freelance-item md:col-span-4 md:col-start-7" style="margin-bottom:1.5rem">
+        <h3 class="font-display font-semibold" style="font-size:1.125rem;line-height:1.2;margin-bottom:0.25rem;color:var(--text)">Automated Invoice Pipeline</h3>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.75rem;color:var(--accent)">Streamline Agency</p>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.8125rem;line-height:1.6;margin-bottom:0.75rem;color:var(--text-dim)">Replaced a manual invoicing workflow with an automated pipeline — PDF generation, email delivery, Stripe integration.</p>
+        <div style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;line-height:1.5;color:var(--accent)">
+          <span aria-hidden="true" style="display:inline-block;margin-right:0.375rem">&rarr;</span>Saved 12 hrs/week in billing ops
+        </div>
+      </div>
+
+      <div class="freelance-item md:col-span-6 md:col-start-3" style="margin-bottom:1.5rem">
+        <h3 class="font-display font-semibold" style="font-size:1.125rem;line-height:1.2;margin-bottom:0.25rem;color:var(--text)">Course Platform MVP</h3>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.75rem;color:var(--accent)">EduLaunch</p>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.8125rem;line-height:1.6;margin-bottom:0.75rem;color:var(--text-dim)">Developed the MVP for a membership-based course platform with video hosting, progress tracking, and Stripe subscriptions.</p>
+        <div style="font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;line-height:1.5;color:var(--accent)">
+          <span aria-hidden="true" style="display:inline-block;margin-right:0.375rem">&rarr;</span>Shipped in 6 weeks, 200+ beta users
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<div class="rule" style="max-width:1200px;margin:0 auto"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="md:grid-12" style="margin-bottom:2.5rem">
+      <div class="md:col-span-2">
+        <span class="section-label">Contact</span>
+      </div>
+      <div class="md:col-span-6 md:col-start-4">
+        <h2 class="font-display font-bold" style="font-size:1.5rem;line-height:1.2;margin-bottom:1rem;color:var(--text)">Get in Touch</h2>
+        <p style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;color:var(--text-dim)">Internship offers, Job opportunities, Freelance gigs, or just to say hi.</p>
+      </div>
+    </div>
+
+    <div class="md:grid-12" style="gap:2rem">
+      <div class="md:col-span-5 md:col-start-2" style="margin-bottom:2rem">
+        <a href="mailto:faiyazmanju.tech@gmail.com" class="font-display font-semibold hover-accent" style="display:block;font-size:clamp(1.25rem,2.5vw,1.75rem);line-height:1.2;color:var(--text);transition:color .2s;margin-bottom:1.5rem">
+          faiyazmanju.tech@gmail.com
+        </a>
+        <div style="font-family:'DM Mono',Consolas,monospace;font-size:0.875rem;color:var(--text-dim)">
+          <a href="https://github.com/faiyaz-manju" class="hover-accent" style="display:block;transition:color .2s;margin-bottom:0.5rem">github.com/faiyaz-manju</a>
+          <a href="https://www.linkedin.com/in/faiyaz-manju/" class="hover-accent" style="display:block;transition:color .2s">linkedin.com/in/faiyaz-manju</a>
+        </div>
+      </div>
+      <div class="md:col-span-4 md:col-start-8">
+        <form id="contactForm" style="display:flex;flex-direction:column;gap:1rem">
+          <input type="text" placeholder="Your name" required class="contact-input">
+          <input type="email" placeholder="Your email" required class="contact-input">
+          <textarea placeholder="What are you looking for?" required rows="3" class="contact-input" style="resize:vertical;min-height:5rem"></textarea>
+          <button type="submit" class="btn btn-primary" id="submitBtn" style="align-self:flex-start">Send Message &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule" style="max-width:1200px;margin:0 auto"></div>
+
+<!-- FOOTER -->
+<footer style="padding:2rem 0;border-top:1px solid var(--border);transition:border-color .3s">
+  <div class="container">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.25rem;font-family:'DM Mono',Consolas,monospace;font-size:0.75rem;color:var(--text-dim)">
+      <span>&copy; 2026 Faiyaz I. Manju</span>
+      <span>Built with HTML, CSS &amp; JS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  // Theme
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') html.classList.remove('dark');
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      updateThemeIcon(!isDark);
+    });
+  }
+
+  function updateThemeIcon(isDark) {
+    if (!themeToggle) return;
+    themeToggle.innerHTML = isDark
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+
+  // Set initial icon based on actual state
+  updateThemeIcon(html.classList.contains('dark'));
+
+  // Mobile nav
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+      hamburger.innerHTML = navLinks.classList.contains('open')
+        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';
+    });
+
+    document.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      hamburger.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';
+    });
+
+    navLinks.addEventListener('click', function(e) { e.stopPropagation(); });
+  }
+
+  // Contact form
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  if (form && submitBtn) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.textContent = 'Sent \u2713';
+      setTimeout(function() { submitBtn.textContent = 'Send Message \u2192'; }, 4000);
+    });
+  }
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const id = this.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
